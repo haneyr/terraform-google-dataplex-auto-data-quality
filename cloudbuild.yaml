@@ -25,6 +25,7 @@ steps:
       echo "***********************"
 options:
   logging: CLOUD_LOGGING_ONLY
+
 # [START tf-init]
 - id: 'tf init'
   name: 'hashicorp/terraform:1.9.5'
@@ -33,12 +34,11 @@ options:
   - '-c'
   - |
       if [ -d "environments/$BRANCH_NAME/" ]; then
-        cd environments/$BRANCH_NAME
+        cd "environments/$BRANCH_NAME"
         terraform init
       else
-        for dir in environments/*/
-        do
-          cd ${dir}
+        for dir in environments/*/; do
+          cd "$dir"
           env=${dir%*/}
           env=${env#*/}
           echo ""
@@ -52,6 +52,7 @@ options:
 # [END tf-init]
 options:
   logging: CLOUD_LOGGING_ONLY
+
 # [START tf-plan]
 - id: 'tf plan'
   name: 'hashicorp/terraform:1.9.5'
@@ -60,12 +61,11 @@ options:
   - '-c'
   - |
       if [ -d "environments/$BRANCH_NAME/" ]; then
-        cd environments/$BRANCH_NAME
+        cd "environments/$BRANCH_NAME"
         terraform plan
       else
-        for dir in environments/*/
-        do
-          cd ${dir}
+        for dir in environments/*/; do
+          cd "$dir"
           env=${dir%*/}
           env=${env#*/}
           echo ""
@@ -79,6 +79,7 @@ options:
 # [END tf-plan]
 options:
   logging: CLOUD_LOGGING_ONLY
+
 # [START tf-apply]
 - id: 'tf apply'
   name: 'hashicorp/terraform:1.9.5'
@@ -87,7 +88,7 @@ options:
   - '-c'
   - |
       if [ -d "environments/$BRANCH_NAME/" ]; then
-        cd environments/$BRANCH_NAME
+        cd "environments/$BRANCH_NAME"
         terraform apply -auto-approve
       else
         echo "***************************** SKIPPING APPLYING *******************************"
