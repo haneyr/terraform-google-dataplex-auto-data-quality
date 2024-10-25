@@ -92,3 +92,7 @@ steps:
         echo "*******************************************************************************"
       fi
 # [END tf-apply]
+
+# This is the new section for Cloud Logging
+options:
+  logging: CLOUD_LOGGING_ONLY
