@@ -23,7 +23,8 @@ steps:
       echo "***********************"
       echo "${BRANCH_NAME}"
       echo "***********************"
-
+options:
+  logging: CLOUD_LOGGING_ONLY
 # [START tf-init]
 - id: 'tf init'
   name: 'hashicorp/terraform:1.9.5'
@@ -49,7 +50,8 @@ steps:
         done
       fi
 # [END tf-init]
-
+options:
+  logging: CLOUD_LOGGING_ONLY
 # [START tf-plan]
 - id: 'tf plan'
   name: 'hashicorp/terraform:1.9.5'
@@ -75,7 +77,8 @@ steps:
         done
       fi
 # [END tf-plan]
-
+options:
+  logging: CLOUD_LOGGING_ONLY
 # [START tf-apply]
 - id: 'tf apply'
   name: 'hashicorp/terraform:1.9.5'
@@ -92,3 +95,5 @@ steps:
         echo "*******************************************************************************"
       fi
 # [END tf-apply]
+options:
+  logging: CLOUD_LOGGING_ONLY
