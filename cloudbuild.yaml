@@ -23,8 +23,6 @@ steps:
       echo "***********************"
       echo "${BRANCH_NAME}"
       echo "***********************"
-options:
-  logging: CLOUD_LOGGING_ONLY
 
 # [START tf-init]
 - id: 'tf init'
@@ -34,11 +32,12 @@ options:
   - '-c'
   - |
       if [ -d "environments/$BRANCH_NAME/" ]; then
-        cd "environments/$BRANCH_NAME"
+        cd environments/$BRANCH_NAME
         terraform init
       else
-        for dir in environments/*/; do
-          cd "$dir"
+        for dir in environments/*/
+        do
+          cd ${dir}
           env=${dir%*/}
           env=${env#*/}
           echo ""
@@ -50,8 +49,6 @@ options:
         done
       fi
 # [END tf-init]
-options:
-  logging: CLOUD_LOGGING_ONLY
 
 # [START tf-plan]
 - id: 'tf plan'
@@ -61,11 +58,12 @@ options:
   - '-c'
   - |
       if [ -d "environments/$BRANCH_NAME/" ]; then
-        cd "environments/$BRANCH_NAME"
+        cd environments/$BRANCH_NAME
         terraform plan
       else
-        for dir in environments/*/; do
-          cd "$dir"
+        for dir in environments/*/
+        do
+          cd ${dir}
           env=${dir%*/}
           env=${env#*/}
           echo ""
@@ -77,8 +75,6 @@ options:
         done
       fi
 # [END tf-plan]
-options:
-  logging: CLOUD_LOGGING_ONLY
 
 # [START tf-apply]
 - id: 'tf apply'
@@ -88,7 +84,7 @@ options:
   - '-c'
   - |
       if [ -d "environments/$BRANCH_NAME/" ]; then
-        cd "environments/$BRANCH_NAME"
+        cd environments/$BRANCH_NAME
         terraform apply -auto-approve
       else
         echo "***************************** SKIPPING APPLYING *******************************"
@@ -96,5 +92,7 @@ options:
         echo "*******************************************************************************"
       fi
 # [END tf-apply]
+
+# This is the new section for Cloud Logging
 options:
   logging: CLOUD_LOGGING_ONLY
